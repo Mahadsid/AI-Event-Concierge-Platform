@@ -3,7 +3,7 @@
 An intelligent corporate event planning assistant that transforms natural language descriptions into structured, AI-generated venue proposals. Built as a full-stack Next.js application with type-safe APIs, persistent storage, and a clean modern UI.
 
 **Live Demo:** [your-deployment-url.vercel.app](https://your-deployment-url.vercel.app)  
-**GitHub:** [github.com/yourusername/ai-event-concierge-platform](https://github.com/yourusername/ai-event-concierge-platform)
+**GitHub:** [github.com/yourusername/ai-event-concierge-platform](https://github.com/Mahadsid/AI-Event-Concierge-Platform)
 
 ---
 
@@ -35,7 +35,7 @@ An intelligent corporate event planning assistant that transforms natural langua
 
 ### Frontend
 
-| Technology          | Version | Why We Used It                                                                                                                      |
+| Technology          | Version | Why it's Used It                                                                                                                    |
 | ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | **Next.js 16**      | `16.x`  | Full-stack React framework with App Router, Server Components, and Route Handlers. Enables SSR for instant data loading on refresh. |
 | **React 19**        | `19.x`  | UI library. Used Server Components for data fetching and Client Components for interactivity.                                       |
@@ -46,7 +46,7 @@ An intelligent corporate event planning assistant that transforms natural langua
 
 ### Backend & API
 
-| Technology         | Version | Why We Used It                                                                                                                                                                                |
+| Technology         | Version | Why it's Used It                                                                                                                                                                              |
 | ------------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **oRPC**           | latest  | Type-safe RPC framework combining the DX of tRPC with OpenAPI compatibility. Procedures are defined with Zod schemas — the same types flow from server handler to client call automatically.  |
 | **TanStack Query** | `v5`    | Async state management. Handles caching, background refetching, and optimistic updates. Used with oRPC's `createTanstackQueryUtils` for fully typed `queryOptions()` and `mutationOptions()`. |
@@ -54,21 +54,21 @@ An intelligent corporate event planning assistant that transforms natural langua
 
 ### Database
 
-| Technology     | Version | Why We Used It                                                                                                                                                                          |
+| Technology     | Version | Why it's Used It                                                                                                                                                                        |
 | -------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Prisma ORM** | `7.x`   | Type-safe database client. Schema-first approach means your TypeScript types are always in sync with your database tables. Auto-generates a fully typed client from `schema.prisma`.    |
 | **NeonDB**     | —       | Serverless PostgreSQL. Scales to zero when not in use (perfect for assignments/side projects), has a generous free tier, and works seamlessly with Prisma. Connection pooling built-in. |
 
 ### AI Integration
 
-| Technology                   | Why We Used It                                                                                                                           |
+| Technology                   | Why it's Used It                                                                                                                         |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | **OpenRouter**               | API gateway that provides access to 100+ LLMs through a single OpenAI-compatible endpoint. Free tier available.                          |
 | **openai/gpt-oss-120b:free** | OpenAI's open-weight 117B MoE model. Supports structured output, function calling, and native tool use. Used via OpenRouter's free tier. |
 
 ### DevX & Tooling
 
-| Technology     | Why We Used It                                                                                                                    |
+| Technology     | Why it's Used It                                                                                                                  |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | **TypeScript** | Full type safety across the entire codebase — database models, API procedures, UI props, and AI response parsing all share types. |
 | **pnpm**       | Fast, disk-efficient package manager. Uses hard links so packages aren't duplicated across projects.                              |
@@ -203,7 +203,7 @@ ai-event-concierge-platform/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/ai-event-concierge-platform.git
+git clone https://github.com/Mahadsid/AI-Event-Concierge-Platform.git
 cd ai-event-concierge-platform
 ```
 
@@ -487,9 +487,9 @@ MIT — feel free to use this as a reference for your own projects.
 
 ## 👤 Author
 
-Built by **[Your Name]**  
-Portfolio: [your-portfolio-url.com](https://your-portfolio-url.com)  
-GitHub: [@yourusername](https://github.com/yourusername)
+Built by **Muhammad Mahad**  
+Portfolio: [your-portfolio-url.com](https://portfolio-2026-theta-eosin.vercel.app/)  
+GitHub: [@yourusername](https://github.com/Mahadsid/)
 
 ---
 
