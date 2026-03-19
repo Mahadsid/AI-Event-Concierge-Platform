@@ -2,7 +2,7 @@
 
 An intelligent corporate event planning assistant that transforms natural language descriptions into structured, AI-generated venue proposals. Built as a full-stack Next.js application with type-safe APIs, persistent storage, and a clean modern UI.
 
-**Live Demo:** [vercel.app](https://your-deployment-url.vercel.app)  
+**Live Demo:** [vercel.app](https://ai-event-concierge-platform-orpin.vercel.app/)  
 **GitHub:** [github.com/Mahadsid/ai-event-concierge-platform](https://github.com/Mahadsid/AI-Event-Concierge-Platform)
 
 ---
@@ -219,7 +219,6 @@ Create a `.env` file in the root of the project:
 
 ```env
 # NeonDB — get this from your Neon project dashboard
-# Use the "pooled connection" string for better performance
 DATABASE_URL="postgresql://username:password@ep-xxxx.region.aws.neon.tech/neondb?sslmode=require"
 
 # OpenRouter — get this from openrouter.ai/settings/keys
@@ -296,7 +295,7 @@ In the Vercel project settings → **Environment Variables**, add:
 
 | Key                   | Value                                                           |
 | --------------------- | --------------------------------------------------------------- |
-| `DATABASE_URL`        | Your NeonDB pooled connection string                            |
+| `DATABASE_URL`        | Your NeonDB connection string                                   |
 | `OPENROUTER_API_KEY`  | Your OpenRouter API key                                         |
 | `NEXT_PUBLIC_APP_URL` | Your Vercel deployment URL (e.g. `https://your-app.vercel.app`) |
 
