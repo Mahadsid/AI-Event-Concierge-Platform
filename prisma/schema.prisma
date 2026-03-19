@@ -13,8 +13,27 @@ datasource db {
 }
 
 model EventRequest {
-  id         String   @id @default(cuid())
-  userInput  String
-  aiResponse Json
-  createdAt  DateTime @default(now())
+  id        String   @id @default(cuid())
+  rawInput  String // "A 10-person leadership retreat..."
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  proposal VenueProposal? // 1-to-1: one request = one proposal
+
+  @@map("event_requests")
+}
+
+model VenueProposal {
+  id            String   @id @default(cuid())
+  venueName     String
+  location      String
+  estimatedCost String // e.g. "$3,200 - $3,800"
+  whyItFits     String   @db.Text // AI justification paragraph
+  amenities     String[] // bonus: array of amenities
+  createdAt     DateTime @default(now())
+
+  eventRequestId String       @unique
+  eventRequest   EventRequest @relation(fields: [eventRequestId], references: [id], onDelete: Cascade)
+
+  @@map("venue_proposals")
 }
