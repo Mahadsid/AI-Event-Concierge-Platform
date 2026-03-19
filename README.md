@@ -2,8 +2,8 @@
 
 An intelligent corporate event planning assistant that transforms natural language descriptions into structured, AI-generated venue proposals. Built as a full-stack Next.js application with type-safe APIs, persistent storage, and a clean modern UI.
 
-**Live Demo:** [your-deployment-url.vercel.app](https://your-deployment-url.vercel.app)  
-**GitHub:** [github.com/yourusername/ai-event-concierge-platform](https://github.com/Mahadsid/AI-Event-Concierge-Platform)
+**Live Demo:** [vercel.app](https://your-deployment-url.vercel.app)  
+**GitHub:** [github.com/Mahadsid/ai-event-concierge-platform](https://github.com/Mahadsid/AI-Event-Concierge-Platform)
 
 ---
 
@@ -488,8 +488,8 @@ MIT — feel free to use this as a reference for your own projects.
 ## 👤 Author
 
 Built by **Muhammad Mahad**  
-Portfolio: [your-portfolio-url.com](https://portfolio-2026-theta-eosin.vercel.app/)  
-GitHub: [@yourusername](https://github.com/Mahadsid/)
+Portfolio: [Portfolio](https://portfolio-2026-theta-eosin.vercel.app/)  
+GitHub: [@Mahadsid](https://github.com/Mahadsid/)
 
 ---
 
