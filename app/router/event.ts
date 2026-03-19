@@ -3,8 +3,7 @@ import { base } from "../middlewares/base";
 import prisma from "@/lib/db";
 import { eventRequestWithProposalSchema } from "../schemas/event";
 
-// Decision: GET /events returns all past requests+proposals, ordered newest first.
-// No pagination for now (assignment scope). Server-side sorted = no client work needed.
+//  GET /events returns all past requests+proposals, ordered newest first.
 
 export const listEventRequests = base
   .route({
