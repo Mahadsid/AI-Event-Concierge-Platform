@@ -18,7 +18,7 @@ export function ProposalCard({ event }: { event: EventRequest }) {
                     <Sparkles className="w-3.5 h-3.5 text-primary" />
                 </div>
                 <div>
-                    <p className="text-xs text-muted-foreground mb-1">Your request</p>
+                    <p className="text-xs text-muted-foreground mb-1">Your Request</p>
                     <p className="text-sm">{event.rawInput}</p>
                 </div>
             </div>

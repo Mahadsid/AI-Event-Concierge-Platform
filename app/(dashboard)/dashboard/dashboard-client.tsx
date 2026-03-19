@@ -24,7 +24,7 @@ export function DashboardClient({ initialEvents }: DashboardClientProps) {
     const [activeTab, setActiveTab] = useState("dashboard");
     const queryClient = useQueryClient();
 
-    // ✅ Correct oRPC TanStack Query usage — .queryOptions() not direct call
+    // oRPC TanStack Query — .queryOptions()
     const { data: events = initialEvents } = useQuery({
         ...orpc.event.list.queryOptions(),
         initialData: { events: initialEvents }, // seed with SSR data
@@ -33,7 +33,7 @@ export function DashboardClient({ initialEvents }: DashboardClientProps) {
 
     const latestEvent = events[0] ?? null;
 
-    // ✅ Correct mutation usage — .mutationOptions()
+    //  mutation  — .mutationOptions()
     const { mutate: generateProposal, isPending } = useMutation({
         ...orpc.ai.generateProposal.mutationOptions(),
         onSuccess: (newEvent) => {

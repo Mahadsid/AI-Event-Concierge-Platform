@@ -9,7 +9,7 @@ import {
   eventRequestWithProposalSchema,
 } from "../schemas/event";
 
-// ─── Model Setup (same pattern as your reference file) ───────────────────────
+// Model Sstup 
 const openrouter = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
 });
@@ -17,7 +17,7 @@ const openrouter = createOpenRouter({
 const MODEL_ID = "openai/gpt-oss-120b:free";
 const model = openrouter.chat(MODEL_ID);
 
-// ─── System Prompt ────────────────────────────────────────────────────────────
+// ─── AI Prompt ────────────────────────────────────────────────────────────
 const SYSTEM_PROMPT = `You are an expert corporate event planning concierge.
 Your job is to recommend a single venue for a corporate offsite based on the user's description.
 
@@ -56,7 +56,7 @@ export const generateProposal = base
       data: { rawInput: input.rawInput },
     });
 
-    // 2. Call AI (generateText — we need full response to parse JSON, not a stream)
+    // 2. Call AI 
     let rawText: string;
       try {
 

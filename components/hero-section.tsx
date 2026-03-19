@@ -5,12 +5,12 @@ import Image from 'next/image'
 import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { HeroHeader } from './header'
-import BackgroundImage from '@/public/background4.jpg'
-import darkbackImg from '@/public/darkback.png'
-import whitebackImg from '@/public/whiteback.png';
-import Arcjet from '@/public/companies/Arcjet.png'
-import Kinde from '@/public/companies/kinde.png'
-import Cloudflare from '@/public/companies/Cloudflare2.png'
+import BackgroundImage from '@/public/background3.jpg'
+import darkbackImg from '@/public/DarkMode.png'
+import whitebackImg from '@/public/LightMode.png';
+import TypeScript from '@/public/companies/typescript.png'
+import OpenRouter from '@/public/companies/open-router.png'
+import Nextjs from '@/public/companies/nextjs-.png'
 import Neon from '@/public/companies/neon.png'
 import Orpc from '@/public/companies/orpc.png'
 import Prsima from '@/public/companies/prisma.svg'
@@ -78,11 +78,11 @@ export default function HeroSection() {
                                     },
                                 },
                             }}
-                            className="mask-b-from-35% mask-b-to-90% absolute inset-0 top-56 -z-20 lg:top-32">
+                            className="mask-b-from-35% mask-b-to-90% absolute inset-0 top-56 -z-10 lg:top-32">
                             <Image
                                 src={BackgroundImage}
                                 alt="background"
-                                className="hidden size-full dark:block"
+                                className="hidden size-full dark:block object-cover"
                                 width="3276"
                                 height="4095"
                             />
@@ -90,7 +90,7 @@ export default function HeroSection() {
 
                         <div
                             aria-hidden
-                            className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]"
+                            className="absolute inset-0 -z-9 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]"
                         />
 
                         <div className="mx-auto max-w-7xl px-6">
@@ -99,7 +99,7 @@ export default function HeroSection() {
                                     <Link
                                         href="#"
                                         className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950">
-                                        <span className="text-foreground text-sm">Smart Team Messaging — Fueled by AI</span>
+                                        <span className="text-foreground text-sm">Powered by Natural Language AI</span>
                                         <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
                                         <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
@@ -120,7 +120,7 @@ export default function HeroSection() {
                                     speedSegment={0.3}
                                     as="h1"
                                     className="mx-auto mt-8 max-w-4xl text-balance text-5xl max-md:font-semibold md:text-7xl lg:mt-16 xl:text-[5.25rem]">
-                                    Unleash Seamless Collaboration.
+                                    Redefining Event Curation.
                                 </TextEffect>
                                 <TextEffect
                                     per="line"
@@ -129,7 +129,7 @@ export default function HeroSection() {
                                     delay={0.5}
                                     as="p"
                                     className="mx-auto mt-8 max-w-2xl text-balance text-lg">
-                                    Elevate your team's communication with an intuitive messaging solution, enhanced by AI for smarter responses and automations.
+                                    Describe your offsite in plain English and let our AI Concierge instantly generate a structured, data-driven venue proposal tailored to your team's needs.
                                 </TextEffect>
 
                                 <AnimatedGroup
@@ -145,25 +145,11 @@ export default function HeroSection() {
                                         ...transitionVariants,
                                     }}
                                     className="mt-12 flex flex-col items-center justify-center gap-5 md:flex-row">
-                                    <div
-                                        key={1}
-                                        className="bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5">
-                                        {/* <Button
-                                            asChild
-                                            size="lg"
-                                            className="rounded-xl px-5 text-base">
-                                            <Link href="#">
-                                                <span className="text-nowrap">
-                                                    Sign-Up Today!
-                                                </span>
-                                            </Link>
-                                        </Button> */}
-                                    </div>
                                     <Button
                                         key={2}
                                         asChild
                                         size="lg"
-                                        variant="ghost"
+                                        variant="default"
                                         className="h-10.5 rounded-xl px-5">
                                         <Link href="/dashboard">
                                             <span className="text-nowrap">Get Started</span>
@@ -221,8 +207,8 @@ export default function HeroSection() {
                             <div className="flex">
                                 <Image
                                     className="mx-auto h-9 object-contain dark:invert"
-                                    src={Arcjet}
-                                    alt="Arcjet Logo"
+                                    src={TypeScript}
+                                    alt="TypeScript Logo"
                                 />
                             </div>
 
@@ -236,8 +222,8 @@ export default function HeroSection() {
                             <div className="flex">
                                 <Image
                                     className="mx-auto h-5 w-fit dark:invert"
-                                    src={Kinde}
-                                    alt="Kinde Logo"
+                                    src={OpenRouter}
+                                    alt="OpenRouter Logo"
                                 />
                             </div>
                             <div className="flex">
@@ -256,9 +242,9 @@ export default function HeroSection() {
                             </div>
                             <div className="flex">
                                 <Image
-                                    className="mx-auto h-7 w-fit object-contain invert dark:invert-0"
-                                    src={Cloudflare}
-                                    alt="Cloudflare Logo"
+                                    className="mx-auto h-8 w-fit object-contain invert dark:invert-0"
+                                    src={Nextjs}
+                                    alt="Nextjs Logo"
                                 />
                             </div>
                             <div className="flex">

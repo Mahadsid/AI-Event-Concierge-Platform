@@ -1,16 +1,18 @@
-'use client'
+"use client";
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { ToggleTheme } from './ui/ToggleTheme'
+import Logo from "@/public/logo.png";
+import Image from "next/image";
 
 const menuItems = [
-    { name: 'Features', href: '#link' },
-    { name: 'Solution', href: '#link' },
-    { name: 'Pricing', href: '#link' },
-    { name: 'About', href: '#link' },
+    // { name: 'Features', href: '#link' },
+    // { name: 'Solution', href: '#link' },
+    // { name: 'Pricing', href: '#link' },
+    { name: 'Built By', href: 'https://portfolio-2026-theta-eosin.vercel.app/' },
 ]
 
 export const HeroHeader = () => {
@@ -35,8 +37,12 @@ export const HeroHeader = () => {
                             <Link
                                 href="/"
                                 aria-label="home"
-                                className="flex items-center space-x-2">
-                                <Logo />
+                                className="flex items-center space-x-2"
+                            >
+                                <Image src={Logo} alt="Logo" width={32} height={32} />
+                                <h1 className="text-2xl font-bold">
+                                    <span className="text-primary">AI Event Concierge</span>
+                                </h1>
                             </Link>
 
                             <button
@@ -77,7 +83,10 @@ export const HeroHeader = () => {
                                 </ul>
                             </div>
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <Button
+                                <div>
+                                    <ToggleTheme />
+                                </div>
+                                {/* <Button
                                     asChild
                                     variant="outline"
                                     size="sm"
@@ -93,12 +102,12 @@ export const HeroHeader = () => {
                                     <Link href="#">
                                         <span>Sign Up</span>
                                     </Link>
-                                </Button>
+                                </Button> */}
                                 <Button
                                     asChild
-                                    size="sm"
+                                    size="default"
                                     className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
-                                    <Link href="#">
+                                    <Link href="/dashboard">
                                         <span>Get Started</span>
                                     </Link>
                                 </Button>
