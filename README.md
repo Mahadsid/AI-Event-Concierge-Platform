@@ -61,10 +61,12 @@ An intelligent corporate event planning assistant that transforms natural langua
 
 ### AI Integration
 
-| Technology                   | Why it's Used                                                                                                                            |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| **OpenRouter**               | API gateway that provides access to 100+ LLMs through a single OpenAI-compatible endpoint. Free tier available.                          |
-| **openai/gpt-oss-120b:free** | OpenAI's open-weight 117B MoE model. Supports structured output, function calling, and native tool use. Used via OpenRouter's free tier. |
+| Technology                      | Why It's Used                                                                                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **OpenRouter**                  | API gateway that provides access to 100+ LLMs through a single OpenAI-compatible endpoint. One API key works for all models — no per-model keys needed. |
+| **openai/gpt-oss-120b:free**    | Primary model. OpenAI's open-weight 117B MoE model. Best quality structured JSON output. Tried first.                                                   |
+| **openai/gpt-oss-20b:free**     | First fallback. Lighter 21B MoE variant — faster response, still excellent at structured output. Tried if 120B is rate limited.                         |
+| **google/gemma-3n-e2b-it:free** | Second fallback. Google's Gemma 3n 2B model. Lightweight and reliable — used as last resort if both OpenAI models are unavailable.                      |
 
 ### DevX & Tooling
 
@@ -117,7 +119,10 @@ POST /rpc/ai/generateProposal  ← oRPC RPC handler
         │
         ├─ 1. Zod validates input (min 10 chars, max 500)
         ├─ 2. Save EventRequest to NeonDB via Prisma
-        ├─ 3. POST to OpenRouter API (gpt-oss-120b:free)
+        ├─ 3. Model waterfall — tries each model in order:
+        │      ├─ 🥇 openai/gpt-oss-120b:free  (best quality)
+        │      ├─ 🥈 openai/gpt-oss-20b:free   (if 120B rate limited)
+        │      └─ 🥉 google/gemma-3n-e2b-it:free (last resort)
         │      └─ System prompt forces JSON-only response
         ├─ 4. Zod parses + validates AI JSON response
         ├─ 5. Save VenueProposal linked to EventRequest
@@ -361,16 +366,59 @@ The quality of AI output depends entirely on the system prompt. Here's the strat
 
 ---
 
+## 🔄 Model Waterfall — How AI Resilience Works
+
+Free tier models on OpenRouter have rate limits. To ensure the app always responds, we implemented a **model waterfall** — if the primary model is rate limited, we automatically try the next one:
+
+```
+Request comes in
+      │
+      ▼
+🥇 Try: openai/gpt-oss-120b:free
+      │
+      ├── ✅ Success → use response
+      │
+      └── ❌ 429 Rate Limited
+            │
+            ▼
+      🥈 Try: openai/gpt-oss-20b:free
+            │
+            ├── ✅ Success → use response
+            │
+            └── ❌ 429 Rate Limited
+                  │
+                  ▼
+            🥉 Try: google/gemma-3n-e2b-it:free
+                  │
+                  ├── ✅ Success → use response
+                  │
+                  └── ❌ All models exhausted
+                        │
+                        ▼
+                  Toast: "AI is currently busy. Try again in a minute."
+```
+
+**Key design decisions in the waterfall:**
+
+- **Retryable errors only** — only 429 (rate limit) and 503 (service unavailable) trigger the next model. Auth errors and bad requests fail immediately without trying other models.
+- **Single API key** — all three models use the same `OPENROUTER_API_KEY`. OpenRouter handles routing.
+- **`isRetryableError()` helper** — checks both HTTP status codes and error message keywords to catch all rate limit variants across different model providers.
+- **Ordered by capability** — 120B first (best quality), then 20B (fast), then Gemma (most available). Users get the best possible response given current availability.
+
+---
+
 ## 🛠️ Key Technical Decisions
 
-| Decision                                 | Reasoning                                                                                                                                             |
-| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **oRPC over tRPC**                       | oRPC generates OpenAPI specs alongside RPC — better for documentation and potential future REST client support                                        |
-| **Server Components for data fetching**  | `page.tsx` fetches history via `serverClient` (direct call, no HTTP). Data is available on first render — no loading flash on refresh                 |
-| **`initialData` in TanStack Query**      | SSR data seeds the client cache. After mutations, `invalidateQueries` triggers a fresh client-side fetch. Best of both SSR and client-side reactivity |
-| **Save request before AI call**          | If the AI fails, we still have the user's input in the DB. We delete it on failure — but if delete also fails, the record is a harmless orphan        |
-| **Direct `fetch` for OpenRouter**        | Avoids AI SDK version compatibility issues. The OpenRouter API is OpenAI-compatible so plain `fetch` with JSON body is the most reliable approach     |
-| **`String[]` for amenities in Postgres** | Native array column — no join table, no serialization. Prisma handles it natively                                                                     |
+| Decision                                     | Reasoning                                                                                                                                                                   |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **oRPC over tRPC**                           | oRPC generates OpenAPI specs alongside RPC — better for documentation and potential future REST client support                                                              |
+| **Server Components for data fetching**      | `page.tsx` fetches history via `serverClient` (direct call, no HTTP). Data is available on first render — no loading flash on refresh                                       |
+| **`initialData` in TanStack Query**          | SSR data seeds the client cache. After mutations, `invalidateQueries` triggers a fresh client-side fetch. Best of both SSR and client-side reactivity                       |
+| **Save request before AI call**              | If the AI fails, we still have the user's input in the DB. We delete it on failure — but if delete also fails, the record is a harmless orphan                              |
+| **3-model waterfall for AI**                 | Free tier models get rate limited. Waterfall across `gpt-oss-120b → gpt-oss-20b → gemma-3n-e2b` means the app almost never fails due to a single model being busy           |
+| **Single OpenRouter API key for all models** | OpenRouter is a unified gateway — one key routes to any of 100+ models. No per-model credentials to manage                                                                  |
+| **`isRetryableError()` helper**              | Distinguishes rate limit errors (retry with next model) from auth/validation errors (fail fast). Prevents wasting time trying all models when the issue isn't rate limiting |
+| **`String[]` for amenities in Postgres**     | Native array column — no join table, no serialization. Prisma handles it natively                                                                                           |
 
 ---
 

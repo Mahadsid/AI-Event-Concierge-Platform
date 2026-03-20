@@ -64,7 +64,7 @@ export function DashboardClient({ initialEvents }: DashboardClientProps) {
                         AI-powered venue recommendations for your corporate events
                     </p>
                 </div>
-                <Button onClick={() => setModalOpen(true)} className="gap-2">
+                <Button onClick={() => setModalOpen(true)} className="gap-2 cursor-pointer">
                     <Plus className="w-4 h-4" />
                     New Event
                 </Button>
